@@ -4,18 +4,34 @@ pipeline {
     stages {
         stage('Install Build Tools') {
             steps {
-                sh 'apk add --no-cache build-base cmake'
+                sh '''
+                # Update apk and install build tools
+                apk add --no-cache build-base cmake
+                '''
             }
         }
-        stage('Build') {
+
+        stage('Build Project') {
             steps {
-                sh 'mkdir -p build && cd build && cmake .. && make'
+                sh '''
+                mkdir -p build
+                cd build
+                cmake ..
+                make
+                '''
             }
         }
+
         stage('Run Tests') {
             steps {
-                sh './build/test/test_main'
+                sh './build/test_main'
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Build finished"
         }
     }
 }
