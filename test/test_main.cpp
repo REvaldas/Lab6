@@ -1,10 +1,9 @@
-#include <iostream>
 #include <cassert>
 #include "../src/main.cpp"
 
 int main() {
-    // Example test: 2+2 = 4
-    assert(2 + 2 == 4);
-    std::cout << "✅ Test passed!\n";
+    assert(add(2, 2) == 4);
+    assert(add(-1, 1) == 0);
+    std::cout << "✅ All tests passed!\n";
     return 0;
 }
