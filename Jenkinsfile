@@ -1,11 +1,16 @@
 pipeline {
-    agent { label 'docker-agent-alpine' }
+    agent {
+        docker {
+            image 'alpine:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     stages {
         stage('Install Build Tools') {
             steps {
                 sh '''
-                #!/bin/sh -xe
+                set -x
                 apk update
                 apk add --no-cache build-base cmake git
                 '''
@@ -15,7 +20,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 sh '''
-                #!/bin/sh -xe
+                set -x
                 mkdir -p build
                 cd build
                 cmake ..
@@ -27,7 +32,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                #!/bin/sh -xe
+                set -x
                 cd build
                 ./test_main
                 '''
@@ -37,7 +42,7 @@ pipeline {
 
     post {
         always {
-            echo "Build finished"
+            echo "✅ Build finished!"
         }
     }
 }
