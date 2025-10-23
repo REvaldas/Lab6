@@ -13,6 +13,7 @@ pipeline {
                 set -x
                 apk update
                 apk add --no-cache build-base cmake git
+                echo "✅ Installed build tools"
                 '''
             }
         }
@@ -25,6 +26,7 @@ pipeline {
                 cd build
                 cmake ..
                 cmake --build . --verbose
+                echo "✅ Build finished"
                 '''
             }
         }
@@ -35,6 +37,7 @@ pipeline {
                 set -x
                 cd build
                 ./test_main
+                echo "✅ Tests finished"
                 '''
             }
         }
@@ -42,7 +45,7 @@ pipeline {
 
     post {
         always {
-            echo "✅ Build finished!"
+            echo "🏁 Pipeline completed!"
         }
     }
 }
