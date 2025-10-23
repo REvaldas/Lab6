@@ -1,13 +1,13 @@
 pipeline {
-agent any
+    agent any
 
     stages {
         stage('Install Build Tools') {
             steps {
                 sh '''
                 set -x
-                apk update
-                apk add --no-cache build-base cmake git
+                apt-get update
+                apt-get install -y build-essential cmake git
                 echo "✅ Installed build tools"
                 '''
             }
@@ -20,7 +20,7 @@ agent any
                 mkdir -p build
                 cd build
                 cmake ..
-                cmake --build . --verbose
+                make
                 echo "✅ Build finished"
                 '''
             }
