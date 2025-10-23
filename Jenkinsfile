@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'docker-agent-alpine' }
+    agent { label 'alpine:latest' }
 
     stages {
         stage('Install Build Tools') {
