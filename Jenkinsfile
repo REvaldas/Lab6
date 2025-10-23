@@ -5,7 +5,6 @@ pipeline {
         stage('Install Build Tools') {
             steps {
                 sh '''
-                # Enable command echoing
                 set -x
                 apk update
                 apk add --no-cache build-base cmake git
