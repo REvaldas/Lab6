@@ -1,11 +1,11 @@
 pipeline {
-    agent { label 'alpine:latest' }
+    agent { label 'docker-agent-alpine' }
 
     stages {
         stage('Install Build Tools') {
             steps {
                 sh '''
-                set -x
+                #!/bin/sh -xe
                 apk update
                 apk add --no-cache build-base cmake git
                 '''
@@ -15,7 +15,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 sh '''
-                set -x
+                #!/bin/sh -xe
                 mkdir -p build
                 cd build
                 cmake ..
@@ -27,7 +27,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                set -x
+                #!/bin/sh -xe
                 cd build
                 ./test_main
                 '''
