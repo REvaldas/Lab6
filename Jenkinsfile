@@ -5,8 +5,10 @@ pipeline {
         stage('Install Build Tools') {
             steps {
                 sh '''
-                # Update apk and install build tools
-                apk add --no-cache build-base cmake
+                # Enable command echoing
+                set -x
+                apk update
+                apk add --no-cache build-base cmake git
                 '''
             }
         }
@@ -14,17 +16,22 @@ pipeline {
         stage('Build Project') {
             steps {
                 sh '''
+                set -x
                 mkdir -p build
                 cd build
                 cmake ..
-                make
+                cmake --build . --verbose
                 '''
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh './build/test_main'
+                sh '''
+                set -x
+                cd build
+                ./test_main
+                '''
             }
         }
     }
