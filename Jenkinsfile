@@ -6,8 +6,8 @@ pipeline {
             steps {
                 sh '''
                 set -x
-                apt-get update
-                apt-get install -y build-essential cmake git
+                sudo apt-get update
+                sudo apt-get install -y build-essential cmake git
                 echo "✅ Installed build tools"
                 '''
             }
