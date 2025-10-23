@@ -6,7 +6,7 @@ int main() {
     BankAccount account(100.0);
 
     account.deposit(50);
-    assert(account.getBalance() == 0);
+    assert(account.getBalance() == 150);
 
     bool success = account.withdraw(70);
     assert(success);
